@@ -15,7 +15,7 @@ k = np.ma.compress_cols(np.ma.masked_invalid(k))
 l = k
 k = k[:,0:len(k[0])-1]
 
-k_norm = preprocessing.scale(k)
+k_norm = k#preprocessing.scale(k)
 
 dist_list = list()
 

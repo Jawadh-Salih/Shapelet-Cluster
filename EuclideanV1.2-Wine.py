@@ -1,6 +1,7 @@
 
-from pyclustering.cluster.agglomerative import agglomerative
+from pyclustering.cluster.kmeans import kmeans
 from sklearn import preprocessing
+from sklearn.cluster import KMeans
 from numpy import genfromtxt
 from scipy.spatial import distance
 
@@ -16,6 +17,8 @@ k = k[:,1:len(k[0])]
 
 k_norm = preprocessing.scale(k)
 
+kmeans = KMeans(n_clusters=3,random_state=0).fit(k_norm)
+print(kmeans.labels_)
 
 dist_list = list()
 
@@ -26,40 +29,40 @@ for row in k_norm:
         val = distance.euclidean(row,row1)
         dist_list_row.append(val)
     dist_list.append(dist_list_row)
+    # k_means = KMeans(n_clusters=2,random_state=0).fit(dist_list_row)
+    # print("Distance for row ")
+    # print(count)
+    # count = count + 1
+    # print(dist_list_row)
+    # print(kmeans)
+    # optics_instance.process()
+    #
+    # # Creating a 2d array of Clusters which is not uniform.
+    # #clusters[cluster #][cluster elements label]
+    # clusters = optics_instance.get_clusters()
+    #
+    # print("Clusters")
+    # print(clusters)
+    #
+    # noise = optics_instance.get_noise()
+    # print("Noise")
+    # print(noise)
 
-    optics_instance = agglomerative(dist_list_row,2)
-    print("Distance for row ")
-    print(count)
-    count = count + 1
-    print(dist_list_row)
-    optics_instance.process()
-
-    # Creating a 2d array of Clusters which is not uniform.
-    #clusters[cluster #][cluster elements label]
-    clusters = optics_instance.get_clusters()
-
-    print("Clusters")
-    print(clusters)
-
-    noise = optics_instance.get_noise()
-    print("Noise")
-    print(noise)
-
-    clusterCount = 1
-    for k in clusters:
-       for temp in k: #For each element in the cluster k
-           if clusterCount <= c:
-               results[temp][clusterCount-1]  = results[temp][clusterCount-1] + 1
-
-           else:
-               results[temp][c-1] = results[temp][c-1] + 1
-               #continue
-
-       clusterCount = clusterCount + 1
-
-    print("Number of clusters")
-
-    print(len(clusters))
+    # clusterCount = 1
+    # for k in clusters:
+    #    for temp in k: #For each element in the cluster k
+    #        if clusterCount <= c:
+    #            results[temp][clusterCount-1]  = results[temp][clusterCount-1] + 1
+    #
+    #        else:
+    #            results[temp][c-1] = results[temp][c-1] + 1
+    #            #continue
+    #
+    #    clusterCount = clusterCount + 1
+    #
+    # print("Number of clusters")
+    #
+    # print(len(clusters))
 #End of outer for loop
 print("--------------Clustering Results-------------")
 
